@@ -1,9 +1,6 @@
-use recipes::copper_ingot::CopperIngot;
-
-mod recipes;
-mod ingredients;
+mod factory;
+mod blueprints;
 
 fn main() {
-    let recipe = CopperIngot::new();
-    println!("{}", recipe.res)
+
 }
