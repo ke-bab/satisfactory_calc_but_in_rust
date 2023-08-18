@@ -1,4 +1,4 @@
-use crate::resources::ResourceName;
+use crate::blueprints::resources::ResourceName;
 
 pub struct Ingredient {
     pub name: ResourceName,
