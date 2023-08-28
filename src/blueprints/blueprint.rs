@@ -3,9 +3,12 @@ use crate::factory::Factory;
 
 pub struct BluePrint {
     pub resource: ResourceName,
+    pub byproduct: Option<ResourceName>,
     pub production_rate: f32,
     pub is_alternate: bool,
-    pub available_blueprints: Vec<BluePrint>,
+    pub is_primitive: bool,
+    pub is_recursive: bool,
+    pub ingredients: Vec<ResourceName>,
 }
 
 impl BluePrint {
@@ -13,13 +16,15 @@ impl BluePrint {
         resource: ResourceName,
         production_rate: Option<f32>,
         is_alternate: Option<bool>,
-        available_blueprints: Option<Vec<BluePrint>>,
     ) -> BluePrint {
         BluePrint {
             resource,
+            byproduct: None,
+            is_primitive: false,
+            is_recursive: false,
             production_rate: production_rate.unwrap_or(1.0),
             is_alternate: is_alternate.unwrap_or(false),
-            available_blueprints: available_blueprints.unwrap_or(Vec::new()),
+            ingredients: Vec::new(),
         }
     }
     pub fn new_factory(&self, multi: Option<f32>) -> Factory {
