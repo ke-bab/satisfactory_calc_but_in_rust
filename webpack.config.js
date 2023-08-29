@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  mode: "development",
   watch: true,
   entry: './front/src/index.js',
   output: {

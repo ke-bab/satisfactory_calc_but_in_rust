@@ -1,40 +1,32 @@
 import  Square from "./Square"
 import { useState } from 'react';
+import Game from "./core";
 
 export default function Board() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const game = Game.new();
+  const [squares, setSquares] = useState(game.getState());
+//  game.setStateHasChangedClosure(() => {
+//	const nextSquares = game.squares.slice();
+//   	setSquares(nextSquares);
+//  });
 
-	function handleClick(i) {
-	  if (squares[i]) {
-		return;
-	  }
-	  const nextSquares = squares.slice();
-	  if (xIsNext) {
-		  nextSquares[i] = "X";
-		} else {
-		  nextSquares[i] = "O";
-		}
-	  setSquares(nextSquares);
-	  setXIsNext(!xIsNext);
-	}
 
   return (
           <>
                   <div className="board-row">
-                    <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-                    <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-                    <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                    <Square value={game.squares[0]} onSquareClick={() => game.doNextMove(0)} />
+                    <Square value={game.squares[1]} onSquareClick={() => game.doNextMove(1)} />
+                    <Square value={game.squares[2]} onSquareClick={() => game.doNextMove(2)} />
                   </div>
                   <div className="board-row">
-                    <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-                    <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-                    <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                    <Square value={game.squares[3]} onSquareClick={() => game.doNextMove(3)} />
+                    <Square value={game.squares[4]} onSquareClick={() => game.doNextMove(4)} />
+                    <Square value={game.squares[5]} onSquareClick={() => game.doNextMove(5)} />
                   </div>
                   <div className="board-row">
-                    <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-                    <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-                    <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                    <Square value={game.squares[6]} onSquareClick={() => game.doNextMove(6)} />
+                    <Square value={game.squares[7]} onSquareClick={() => game.doNextMove(7)} />
+                    <Square value={game.squares[8]} onSquareClick={() => game.doNextMove(8)} />
                   </div>
           </>
   )
