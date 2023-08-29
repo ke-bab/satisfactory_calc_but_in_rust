@@ -1,5 +1,6 @@
 const playerX = "X";
 const playerO = "O";
+const NULL = "NULL";
 const SIZE = 9;
 const MIN = 0;
 const MAX = 8;
@@ -67,17 +68,17 @@ export default class Game {
 }
 
 class Square {
-	internalValue = null;
+	internalValue = NULL;
 
 	isX() {
-		return this.internalValue === playerX
+		return this.internalValue === playerX;
 	}
 
 	isO() {
-		return this.internalValue === playerO
+		return this.internalValue === playerO;
 	}
 
 	isEmpty() {
-		return this.internalValue === null
+		return this.internalValue === NULL;
 	}
 }
