@@ -6,8 +6,6 @@ pub struct BluePrint {
     pub byproduct: Option<ResourceName>,
     pub production_rate: f32,
     pub is_alternate: bool,
-    pub is_primitive: bool,
-    pub is_recursive: bool,
     pub ingredients: Vec<ResourceName>,
 }
 
@@ -20,8 +18,6 @@ impl BluePrint {
         BluePrint {
             resource,
             byproduct: None,
-            is_primitive: false,
-            is_recursive: false,
             production_rate: production_rate.unwrap_or(1.0),
             is_alternate: is_alternate.unwrap_or(false),
             ingredients: Vec::new(),
