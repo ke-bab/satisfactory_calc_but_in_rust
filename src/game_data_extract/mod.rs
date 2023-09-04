@@ -94,8 +94,21 @@ fn next_desc(string: &str, start: usize) -> Option<(String, usize)> {
     }
 }
 
+/// * `string` - item value and amount value without braces, divided by comma.
+/// # example:
+/// ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/Cement/Desc_Cement.Desc_Cement_C"',Amount=3
 fn parse_desc(string: &str) -> ResourceDesc {
-    let mut item_and_amount: Vec<&str> = string.split(",").collect();
+    let comma_pos = string.find(",").unwrap();
+    // find value of item after =
+    let item_value = parse_item_value(&string[..comma_pos]);
+    // strip value from suffix
+    let item_value_stripped = strip_item_prefix_and_suffix(&item_value);
+    // find value of amount after =
+    // parse int
+    // return new struct
+
+
+    let item_and_amount: Vec<&str> = string.split(",").collect();
     let item_vec: Vec<&str> = item_and_amount[0].split("=").collect();
     let item_classname_vec: Vec<&str> = item_vec[1].split(".").collect();
     let item_classname = item_classname_vec[1];
@@ -114,4 +127,14 @@ fn parse_desc(string: &str) -> ResourceDesc {
     let amount: i32 = amount_vec[1].parse().unwrap();
 
     ResourceDesc { item_class: item, amount }
+}
+
+fn parse_item_value(string: &str) -> &str {
+    let eq_pos = string.find("=").unwrap();
+
+    return &string[eq_pos+1..]
+}
+
+fn strip_item_prefix_and_suffix(string: &str) -> &str {
+
 }
