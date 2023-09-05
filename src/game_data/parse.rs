@@ -25,6 +25,8 @@ pub fn parse_descriptions(string: &str) -> Vec<ResourceDesc> {
         }
         let found_brace = (&string[pos..]).find(")");
         if found_brace.is_some() {
+            // here we adding "start pos" + "pos of right brace" because we want absolute index
+            // from beginning of entire string, not from a slice
             Some(found_brace.unwrap() + pos)
         } else {
             None
