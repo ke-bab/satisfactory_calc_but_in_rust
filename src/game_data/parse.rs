@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub struct ResourceDesc {
-    item_class: String,
-    amount: i32,
+    pub name: String,
+    pub amount: i32,
 }
 
 /// parse_descriptions heavily rely on string format, so any difference will break it.
@@ -36,6 +36,9 @@ pub fn parse_descriptions(string: &str) -> Vec<ResourceDesc> {
     list
 }
 
+pub fn strip_class_name(string: &str) -> &str {
+    &string[7..string.len()-2]
+}
 
 /// * `string` - item value and amount value without braces, divided by comma.
 /// # example:
@@ -45,7 +48,7 @@ fn parse_item_and_amount(string: &str) -> ResourceDesc {
     let item = parse_item(&string[..comma_pos]);
     let amount = parse_amount(&string[comma_pos+1..]);
 
-    ResourceDesc { item_class: item.to_string(), amount }
+    ResourceDesc { name: item.to_string(), amount }
 }
 
 fn parse_item(string: &str) -> &str {

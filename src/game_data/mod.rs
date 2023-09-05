@@ -36,6 +36,21 @@ pub struct ParsedClass {
     pub is_alternate: bool,
 }
 
+impl ParsedClass {
+    // pub fn amount_per_min(&self) -> f32 {
+    //     60 / self.manufactoring_duration * self.
+    // }
+
+    pub fn contains_product(&self, string: &str) -> bool {
+        for product in &self.products {
+            if product.name.eq(string) {
+                return true;
+            }
+        }
+        false
+    }
+}
+
 pub fn extract(file: &str) -> Vec<ParsedClass> {
     let file = File::open(file).unwrap();
     let json: Json = serde_json::from_reader(file).unwrap();
@@ -45,8 +60,8 @@ pub fn extract(file: &str) -> Vec<ParsedClass> {
         let prod_desc = parse::parse_descriptions(&class.m_product);
         let float_duration: f32 = class.m_manufactoring_duration.parse().unwrap();
         let parsed = ParsedClass {
-            class_name: class.class_name.clone(),
-            display_name: class.m_display_name.clone(),
+            class_name: parse::strip_class_name(&class.class_name).to_string(),
+            display_name: class.m_display_name.to_string(),
             ingredients: ingred_desc,
             products: prod_desc,
             manufactoring_duration: float_duration as i32,
