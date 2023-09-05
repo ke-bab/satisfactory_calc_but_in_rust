@@ -1,20 +1,19 @@
+mod parse;
+
 use std::fs::File;
 use std::str::FromStr;
-
 use serde::Deserialize;
-
 use parse::ResourceDesc;
 
-mod parse;
 
 #[derive(Deserialize)]
 struct Json {
     #[serde(rename = "Classes")]
-    classes: Vec<Class>,
+    classes: Vec<JsonClass>,
 }
 
 #[derive(Deserialize)]
-pub struct Class {
+pub struct JsonClass {
     #[serde(rename = "ClassName")]
     pub class_name: String,
     #[serde(rename = "mDisplayName")]
@@ -27,12 +26,14 @@ pub struct Class {
     pub m_manufactoring_duration: String,
 }
 
+#[derive(Debug)]
 pub struct ParsedClass {
     pub class_name: String,
     pub display_name: String,
     pub ingredients: Vec<ResourceDesc>,
     pub products: Vec<ResourceDesc>,
     pub manufactoring_duration: i32,
+    pub is_alternate: bool,
 }
 
 pub fn extract(file: &str) -> Vec<ParsedClass> {
@@ -49,6 +50,7 @@ pub fn extract(file: &str) -> Vec<ParsedClass> {
             ingredients: ingred_desc,
             products: prod_desc,
             manufactoring_duration: float_duration as i32,
+            is_alternate: class.class_name.contains("Alternate"),
         };
         parsed_vec.push(parsed);
     }

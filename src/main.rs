@@ -1,16 +1,12 @@
-use blueprints::blueprint::BluePrint;
-use blueprints::resources::{ResourceName};
-
-mod factory;
-mod blueprints;
 mod game_data;
 
 fn main() {
-    let b = BluePrint::new(ResourceName::IronIngot, Some(30.0), None);
-    let _f = b.new_factory(Some(2.0));
-    // println!("{:?}", f.multi);
     let classes = game_data::extract(&"recipes.json".to_string());
 
-    println!("{:?}", &classes[616].manufactoring_duration)
+    let iron_rod = classes.iter().find(|x| x.class_name.contains("IronRod"));
+    if iron_rod.is_some() {
+        println!("{:?}", iron_rod.unwrap());
+        println!("{}", "пашет");
+    }
 }
 

@@ -5,7 +5,7 @@ pub struct ResourceDesc {
 }
 
 /// parse_descriptions heavily rely on string format, so any difference will break it.
-/// # example:
+/// # string example:
 /// ((ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/IronRod/Desc_IronRod.Desc_IronRod_C"',Amount=2),(ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/IronPlate/Desc_IronPlate.Desc_IronPlate_C"',Amount=2),(ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/Cement/Desc_Cement.Desc_Cement_C"',Amount=2))
 ///
 /// use at your own risk.
@@ -61,8 +61,12 @@ fn parse_item(string: &str) -> &str {
             &string[..string.len() - 4]
         }
     }
-
-    strip_item_prefix_and_suffix(&slice)
+    fn pick_name_after_dot(string: &str) -> &str {
+        let dot_pos = string.find(".").unwrap();
+        &string[dot_pos+1..]
+    }
+    let name_of_class = pick_name_after_dot(&slice);
+    strip_item_prefix_and_suffix(&name_of_class)
 }
 
 fn get_value_after_equal_sign(string: &str) -> &str {
