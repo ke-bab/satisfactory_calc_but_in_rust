@@ -7,8 +7,6 @@ pub struct ResourceDesc {
 /// parse_descriptions heavily rely on string format, so any difference will break it.
 /// # string example:
 /// ((ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/IronRod/Desc_IronRod.Desc_IronRod_C"',Amount=2),(ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/IronPlate/Desc_IronPlate.Desc_IronPlate_C"',Amount=2),(ItemClass=BlueprintGeneratedClass'"/Game/FactoryGame/Resource/Parts/Cement/Desc_Cement.Desc_Cement_C"',Amount=2))
-///
-/// use at your own risk.
 pub fn parse_descriptions(string: &str) -> Vec<ResourceDesc> {
     // here we trim outer braces, which always present
     let slice = (&string[1..string.len() - 1]);
